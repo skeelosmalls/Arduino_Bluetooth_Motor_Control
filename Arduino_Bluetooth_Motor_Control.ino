@@ -5,7 +5,9 @@
 int bluetoothTx = 1;
 int bluetoothRx = 0;
 AF_DCMotor motor(1);
+AF_DCMotor motor2(2);
 AF_DCMotor motor3(3);
+AF_DCMotor motor4(4);
 
 SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 //
@@ -23,10 +25,15 @@ void setup()
   bluetooth.begin(9600);
   // turn on motor
   motor.setSpeed(255);
+  motor2.setSpeed(255);
   motor3.setSpeed(255);
+  motor4.setSpeed(255);
   
-  motor3.run(RELEASE);
+  
   motor.run(RELEASE);
+  motor2.run(RELEASE);
+  motor3.run(RELEASE);
+  motor4.run(RELEASE);
 }
 int flag1 = -1;
 int flag2 = -1;
@@ -43,9 +50,11 @@ void loop()
       flag1 = 0;
       flag2 = 0;
       motor.run(RELEASE);
+      motor2.run(RELEASE);
       motor3.run(RELEASE);
+      motor4.run(RELEASE);
     }
-    if (toSend == 'F' || toSend == 'G' || toSend == 'I') // Moves Motor Forward
+    if (toSend == 'F' ) // Moves Motor Forward
     {
       if (flag1 != 1)
       {
@@ -55,7 +64,7 @@ void loop()
         motor.run(FORWARD);
       }
     }
-    if (toSend == 'B' || toSend == 'H' || toSend == 'J') //Moves Motor Backwards
+    if (toSend == 'B' ) //Moves Motor Backwards
     {
       if (flag1 != 2)
       {
