@@ -5,6 +5,7 @@
 int bluetoothTx = 1;
 int bluetoothRx = 0;
 AF_DCMotor motor(1);
+AF_DCMotor motor3(3);
 
 SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 //
@@ -21,7 +22,10 @@ void setup()
   bluetooth.println("U,9600,N");
   bluetooth.begin(9600);
   // turn on motor
-  motor.setSpeed(25);
+  motor.setSpeed(255);
+  motor3.setSpeed(255);
+  
+  motor3.run(RELEASE);
   motor.run(RELEASE);
 }
 int flag1 = -1;
@@ -39,6 +43,7 @@ void loop()
       flag1 = 0;
       flag2 = 0;
       motor.run(RELEASE);
+      motor3.run(RELEASE);
     }
     if (toSend == 'F' || toSend == 'G' || toSend == 'I') // Moves Motor Forward
     {
@@ -66,6 +71,16 @@ void loop()
         motor.run(FORWARD);
         delay(500);
         motor.run(RELEASE);
+      }
+    }
+     if (toSend == '3') // Close Hand Test
+    {
+      if (flag1 != 1)
+      {
+        flag2 = 1;
+        motor3.run(FORWARD);
+//        delay(500);
+//        motor3.run(RELEASE);
       }
     }
 
